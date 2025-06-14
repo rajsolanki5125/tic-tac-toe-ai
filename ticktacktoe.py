@@ -2,7 +2,7 @@ import math
 import time
 import random
 
-# Base class for players
+
 class Player:
     def __init__(self, letter):
         self.letter = letter  # X or O
@@ -10,7 +10,7 @@ class Player:
     def get_move(self, game):
         pass
 
-# Human player class
+
 class HumanPlayer(Player):
     def get_move(self, game):
         valid = False
@@ -27,14 +27,14 @@ class HumanPlayer(Player):
         return move
 
 
-# Computer that picks randomly
+
 class RandomComputerPlayer(Player):
     def get_move(self, game):
         move = random.choice(game.available_moves())
         return move
 
 
-# Smarter computer using Minimax
+
 class SmartComputerPlayer(Player):
     def get_move(self, game):
         if len(game.available_moves()) == 9:
@@ -48,7 +48,7 @@ class SmartComputerPlayer(Player):
         max_player = self.letter
         other_player = 'O' if player == 'X' else 'X'
 
-        # Check for previous move winning
+        
         if game_state.current_winner == other_player:
             return {
                 'pos': None,
@@ -68,7 +68,7 @@ class SmartComputerPlayer(Player):
             game_state.make_move(move, player)
             sim_score = self.minimax(game_state, other_player, alpha, beta)
 
-            # Undo the move
+            
             game_state.board[move] = ' '
             game_state.current_winner = None
             sim_score['pos'] = move
@@ -88,7 +88,7 @@ class SmartComputerPlayer(Player):
         return best
 
 
-# Game board and logic
+
 class TicTacToe:
     def __init__(self):
         self.board = [' '] * 9
@@ -100,7 +100,7 @@ class TicTacToe:
 
     @staticmethod
     def print_board_nums():
-        # Show 0-8 positions
+       
         number_board = [[str(i) for i in range(j*3, (j+1)*3)] for j in range(3)]
         for row in number_board:
             print('| ' + ' | '.join(row) + ' |')
@@ -114,19 +114,19 @@ class TicTacToe:
         return False
 
     def check_winner(self, square, letter):
-        # Check row
+        
         row_ind = square // 3
         row = self.board[row_ind*3:(row_ind+1)*3]
         if all([s == letter for s in row]):
             return True
 
-        # Check column
+        
         col_ind = square % 3
         col = [self.board[col_ind + i*3] for i in range(3)]
         if all([s == letter for s in col]):
             return True
 
-        # Check diagonals
+       
         if square % 2 == 0:
             diag1 = [self.board[i] for i in [0, 4, 8]]
             diag2 = [self.board[i] for i in [2, 4, 6]]
@@ -145,7 +145,7 @@ class TicTacToe:
         return self.board.count(' ')
 
 
-# Game loop
+
 def play(game, x_player, o_player, show_board=True):
     if show_board:
         game.print_board_nums()
@@ -176,7 +176,7 @@ def play(game, x_player, o_player, show_board=True):
         print("It's a draw!")
 
 
-# Run the game
+
 if __name__ == '__main__':
     print("Welcome to Tic Tac Toe!")
     while True:
